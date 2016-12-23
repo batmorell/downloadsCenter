@@ -58,6 +58,16 @@ class DownloadsController extends AppController {
         }
     }
 
+    public function listOfDownloads() {
+        $this->viewBuilder()->layout('login_register_layout');
+
+        $session=$this->request->session();
+
+        $listOfDownloads = shell_exec("transmission-remote -auth " . Configure::read('Transmission.username') . ":" . Configure::read('Transmission.password') . " -l");
+
+        $this->set('result', $listOfDownloads);
+    }
+
     public function research() {
         $this->viewBuilder()->layout('main_layout');
 
@@ -112,8 +122,7 @@ class DownloadsController extends AppController {
                     $fp = fopen($this->request->data['id'].'.torrent', 'a');
                     fwrite($fp, $res);
                     fclose($fp);
-                    $message = shell_exec("/var/www/scripts.sh ".$this->request->data['id']);
-                    print_r($message);
+                    $message = shell_exec("/var/www/script.sh ".$this->request->data['id']);
                     break;
                 
                 default:

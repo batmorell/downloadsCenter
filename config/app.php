@@ -222,6 +222,18 @@ return [
     ],
 
     /**
+     * Transmission account
+     *
+     * Contain informations about T411 account
+     * uses to download torrent files
+     *
+     */
+    'Transmission' => [
+        'username' => 'my_username',
+        'password' => 'my_password'
+    ],
+
+    /**
      * Connection information used by the ORM to connect
      * to your application's datastores.
      * Do not use periods in database name - it may lead to error.
