@@ -59,7 +59,7 @@ class DownloadsController extends AppController {
     }
 
     public function listOfDownloads() {
-        $this->viewBuilder()->layout('login_register_layout');
+        $this->viewBuilder()->layout('main_layout');
 
         $session=$this->request->session();
 
