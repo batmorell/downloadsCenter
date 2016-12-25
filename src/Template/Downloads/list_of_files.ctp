@@ -11,11 +11,7 @@
                         <?php foreach($result as $res) : ?>
                         <?php echo '<tr><td>' . $res . '</td>'; ?>
                         <?php echo '<td>'; ?>
-
-                        <?= $this->Form->create('Downloads'); ?>
-                            <?= $this->Form->hidden('name', ['value' => $res]); ?>
-                            <?= $this->Form->button('Download',['class'=>'form-control btn btn-success']); ?>
-                        <?= $this->Form->end(); ?>
+                        <?php echo $this->Html->link('Download', ['controller' => 'Downloads', 'action' => 'download', 'test']); ?>
                         <?php echo '</td>'; ?>
                         <?php echo '</th>'; ?>
                         <?php endforeach; ?>

@@ -95,24 +95,26 @@ class DownloadsController extends AppController {
 
         $this->set('result', $result);
 
-        if($this->request->is("post")){
-            $path = "webroot/downloads/11111/" . $this->request->data['name'];
-            $this->response->file($path, array(
-                'download' => true,
-                'name' => 'test',
-            ));
-            return $this->response;
-        }
-
     }
 
-    public function download($name) {
-        $path = "webroot/downloads/11111/" . $name;
-        $this->response->file($path, array(
-            'download' => true,
-            'name' => 'test',
-        ));
+    public function play() {
+        $this->autoRender = false;
+        $filePath = WWW_ROOT .'downloads/11111/The.Walking.Dead.S05E11.PROPER.VOSTFR.HDTV.XviD-ATeam/'. DS .'The.Walking.Dead.S05E11.PROPER.VOSTFR.HDTV.XviD-ATeam.avi';
+        $this->response->file($filePath);
         return $this->response;
+    }
+    
+    public function download($id) {
+        $this->autoRender = false;
+        $filePath = WWW_ROOT .'downloads/11111/'. DS . $id .'.pdf';
+        $this->response->file($filePath ,
+            array('download'=> true, 'name'=> 'file name'));
+        return $this->response;
+    }
+
+    public function player() {
+        $this->viewBuilder()->layout('main_layout');
+        
     }
 
     public function research() {
