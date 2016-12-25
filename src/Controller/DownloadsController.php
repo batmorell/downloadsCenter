@@ -106,7 +106,7 @@ class DownloadsController extends AppController {
     
     public function download($id) {
         $this->autoRender = false;
-        $filePath = WWW_ROOT .'downloads/11111/'. DS . $id .'.pdf';
+        $filePath = WWW_ROOT .'downloads/11111/'. DS . 'The.Walking.Dead.S07E04.PROPER.VOSTFR.720p.HDTV.X264.AC3-GOBO2S.mkv';
         $this->response->file($filePath ,
             array('download'=> true, 'name'=> 'file name'));
         return $this->response;
