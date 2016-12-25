@@ -99,7 +99,7 @@ class DownloadsController extends AppController {
 
     public function play() {
         $this->autoRender = false;
-        $filePath = WWW_ROOT .'downloads/11111/The.Walking.Dead.S05E11.PROPER.VOSTFR.HDTV.XviD-ATeam/'. DS .'The.Walking.Dead.S05E11.PROPER.VOSTFR.HDTV.XviD-ATeam.avi';
+        $filePath = WWW_ROOT .'downloads/11111/The.Walking.Dead.S05E11.PROPER.VOSTFR.HDTV.XviD-ATeam/'. DS .'OutputFile.mp4';
         $this->response->file($filePath);
         return $this->response;
     }
