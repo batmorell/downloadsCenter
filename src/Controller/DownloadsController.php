@@ -63,8 +63,8 @@ class DownloadsController extends AppController {
 
         $session=$this->request->session();
 
-        $listOfDownloads = shell_exec("ls");
-        
+        $listOfDownloads = shell_exec("/var/www/downloadsCenter/webroot/list.sh");
+
         $re = '/(\s\d\s)(\d{1,3}%)/';
         $subst = ' | $2';
 
@@ -77,6 +77,42 @@ class DownloadsController extends AppController {
         print_r($result);
 
         $this->set('result', $result);
+    }
+
+    public function listOfFiles() {
+        $this->viewBuilder()->layout('main_layout');
+
+        $session=$this->request->session();
+
+        $listOfDownloads = shell_exec("ls -1 webroot/downloads/11111");
+
+        $re = '/\n./';
+        $subst = ' | $0';
+
+        $result = preg_replace($re, $subst, $listOfDownloads);
+        
+        $result = preg_split('/\|/', $result);
+
+        $this->set('result', $result);
+
+        if($this->request->is("post")){
+            $path = "webroot/downloads/11111/" . $this->request->data['name'];
+            $this->response->file($path, array(
+                'download' => true,
+                'name' => 'test',
+            ));
+            return $this->response;
+        }
+
+    }
+
+    public function download($name) {
+        $path = "webroot/downloads/11111/" . $name;
+        $this->response->file($path, array(
+            'download' => true,
+            'name' => 'test',
+        ));
+        return $this->response;
     }
 
     public function research() {
@@ -134,8 +170,8 @@ class DownloadsController extends AppController {
                     $fp = fopen($this->request->data['id'].'.torrent', 'a');
                     fwrite($fp, $res);
                     fclose($fp);
-                    $message = shell_exec("/var/www/downloadsCenter/webroot/script.sh ".$this->request->data['id']);
-                    echo $message;
+                    $cmd = "/var/www/downloadsCenter/webroot/script.sh " . "11111" . $this->request->data['id'];
+                    $message = shell_exec($cmd);
                     break;
                 
                 default:

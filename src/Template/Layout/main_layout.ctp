@@ -51,9 +51,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li>
+                <?= $this->Html->link('Recherche ',['controller' => 'Downloads', 'action' => 'research'])
+                ?>
+            </li>
+            <li>
+                <?= $this->Html->link('Liste des fichiers',['controller' => 'Downloads', 'action' => 'listOfFiles'])
+                ?>
+            </li>
+            <li>
+                <?= $this->Html->link('Liste des téléchargement',['controller' => 'Downloads', 'action' => 'listOfDownloads'])
+                ?>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
