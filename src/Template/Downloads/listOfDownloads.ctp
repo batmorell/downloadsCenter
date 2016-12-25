@@ -1,6 +1,6 @@
 
 <div class='row'>
 
-    <?= $result ?>
+    <?= print_r($result) ?>
 
 </div>

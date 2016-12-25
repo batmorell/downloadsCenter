@@ -63,9 +63,20 @@ class DownloadsController extends AppController {
 
         $session=$this->request->session();
 
-        $listOfDownloads = shell_exec("transmission-remote -auth " . Configure::read('Transmission.username') . ":" . Configure::read('Transmission.password') . " -l");
+        $listOfDownloads = shell_exec("ls");
+        
+        $re = '/(\s\d\s)(\d{1,3}%)/';
+        $subst = ' | $2';
 
-        $this->set('result', $listOfDownloads);
+        $result = preg_replace($re, $subst, $listOfDownloads);
+
+        //echo $result;
+
+        $result = preg_split('/\|/', $result);
+
+        print_r($result);
+
+        $this->set('result', $result);
     }
 
     public function research() {
@@ -86,7 +97,8 @@ class DownloadsController extends AppController {
             switch ($this->request->data['form'])
             {
                 case 'Research':
-                    $lien = 'https://api.t411.li/torrents/search/' . $this->request->data['search'] . '?cid=433';
+                    $search = $name = str_replace(' ', '+', $this->request->data['search']);
+                    $lien = 'https://api.t411.li/torrents/search/' . $search . '?cid=433';
                     if ($this->request->data['season'] != null){
                         $lien = $lien . '&term[45][]=' . $this->request->data['season'];
                     }
@@ -122,7 +134,8 @@ class DownloadsController extends AppController {
                     $fp = fopen($this->request->data['id'].'.torrent', 'a');
                     fwrite($fp, $res);
                     fclose($fp);
-                    $message = shell_exec("/var/www/script.sh ".$this->request->data['id']);
+                    $message = shell_exec("/var/www/downloadsCenter/webroot/script.sh ".$this->request->data['id']);
+                    echo $message;
                     break;
                 
                 default:
